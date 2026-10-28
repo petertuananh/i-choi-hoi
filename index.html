@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#fff8f4" />
+    <meta
+      name="description"
+      content="Một lời mời nhỏ xinh dành cho người đặc biệt."
+    />
+    <title>Mình đi chơi nhé? ♡</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-glow page-glow--one" aria-hidden="true"></div>
+    <div class="page-glow page-glow--two" aria-hidden="true"></div>
+
+    <main class="invitation" id="invitation">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="Về đầu trang">
+          <span class="brand-mark">♡</span>
+          <span>một lời mời</span>
+        </a>
+        <span class="date-pill">28.10.2026</span>
+      </header>
+
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow"><span></span> gửi người mình thương <span></span></p>
+          <h1 id="hero-title">Mình đi<br /><em>chơi nhé?</em></h1>
+          <p class="intro">
+            Có một buổi chiều thật xinh đang chờ chúng mình.<br />
+            Và mình muốn dành nó cho bạn.
+          </p>
+
+          <div class="choice-card" id="choice-card">
+            <p class="question">Bạn có muốn đi cùng mình không?</p>
+            <div class="choice-actions">
+              <button class="button button--primary" id="yes-button" type="button">
+                Đi chứ <span>♡</span>
+              </button>
+              <button class="button button--quiet" id="no-button" type="button">
+                Để mình nghĩ thêm
+              </button>
+            </div>
+            <p class="hint" id="hint" aria-live="polite"></p>
+          </div>
+        </div>
+
+        <div class="hero-art" aria-label="Minh hoạ một buổi hẹn hò" role="img">
+          <div class="sun"></div>
+          <div class="spark spark--one">✦</div>
+          <div class="spark spark--two">✦</div>
+          <div class="spark spark--three">✦</div>
+          <div class="moon-note">a date<br />with you</div>
+          <div class="flower flower--left" aria-hidden="true">
+            <i></i><i></i><i></i><i></i><b></b>
+          </div>
+          <div class="flower flower--right" aria-hidden="true">
+            <i></i><i></i><i></i><i></i><b></b>
+          </div>
+          <div class="hill hill--back"></div>
+          <div class="hill hill--front"></div>
+          <div class="blanket">
+            <span class="blanket-line"></span>
+            <span class="blanket-line"></span>
+            <span class="blanket-line"></span>
+          </div>
+          <div class="basket">
+            <span class="basket-handle"></span>
+            <span class="basket-body"></span>
+          </div>
+          <div class="little-heart">♥</div>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <span>made with a little bit of courage</span>
+        <span class="footer-heart">♥</span>
+        <span>and a lot of love</span>
+      </footer>
+    </main>
+
+    <section class="success-panel" id="success-panel" aria-live="polite" hidden>
+      <div class="confetti" aria-hidden="true"></div>
+      <button class="close-button" id="close-button" type="button" aria-label="Đóng">
+        ×
+      </button>
+      <p class="success-kicker">yay, mình có hẹn rồi!</p>
+      <div class="success-heart">♡</div>
+      <h2>Hẹn bạn một<br /><em>buổi thật vui nhé.</em></h2>
+      <p>
+        Mình sẽ chuẩn bị một chút bất ngờ.<br />
+        Còn bạn chỉ cần xuất hiện thật xinh thôi.
+      </p>
+      <div class="plan">
+        <div class="plan-item"><span>◷</span><strong>Chiều thứ bảy</strong><small>mình cùng đi dạo</small></div>
+        <div class="plan-item"><span>⌖</span><strong>Một nơi thật chill</strong><small>để kể nhau nghe mọi chuyện</small></div>
+      </div>
+      <button class="button button--primary button--again" id="again-button" type="button">
+        Đồng ý, đi thôi <span>→</span>
+      </button>
+    </section>
+
+    <script src="script.js"></script>
+  </body>
+</html>
