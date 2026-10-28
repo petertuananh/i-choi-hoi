@@ -3,111 +3,308 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#fff8f4" />
-    <meta
-      name="description"
-      content="Một lời mời nhỏ xinh dành cho người đặc biệt."
-    />
-    <title>Mình đi chơi nhé? ♡</title>
+    <meta name="theme-color" content="#fff5f7" />
+    <meta name="description" content="Một lời mời hẹn hò thật dễ thương." />
+    <title>Lời mời hẹn hò ♡</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --pink: #ee8299;
+        --pink-dark: #d65d7d;
+        --pink-soft: #fff0f3;
+        --ink: #443740;
+        --muted: #927d88;
+        --cream: #fff8f8;
+        --line: #f0dce2;
+        --shadow: 0 25px 70px rgba(180, 90, 112, .16);
+      }
+
+      * { box-sizing: border-box; }
+      html { min-height: 100%; }
+      body {
+        min-height: 100vh;
+        margin: 0;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at 8% 8%, #ffe1e7 0, transparent 26rem),
+          radial-gradient(circle at 94% 92%, #eadff7 0, transparent 28rem),
+          var(--cream);
+        font-family: "Nunito", sans-serif;
+      }
+      button, input { font: inherit; }
+      button { cursor: pointer; }
+
+      .app {
+        width: min(100% - 32px, 530px);
+        min-height: 100vh;
+        margin: auto;
+        padding: 28px 0;
+        display: flex;
+        flex-direction: column;
+      }
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        color: var(--pink-dark);
+        font-size: 13px;
+        font-weight: 800;
+      }
+      .brand { display: flex; align-items: center; gap: 8px; }
+      .brand-heart { font-size: 23px; line-height: 1; }
+      .step { color: var(--muted); font-size: 11px; letter-spacing: .13em; text-transform: uppercase; }
+
+      .screen {
+        display: none;
+        flex: 1;
+        padding: clamp(24px, 6vw, 42px);
+        overflow: hidden;
+        border: 1px solid rgba(255,255,255,.9);
+        border-radius: 30px;
+        background: rgba(255, 255, 255, .76);
+        box-shadow: var(--shadow);
+        animation: screen-in .5s ease both;
+      }
+      .screen.is-active { display: block; }
+      .screen-header { text-align: center; }
+      .kicker {
+        margin: 0 0 12px;
+        color: var(--pink-dark);
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: .18em;
+        text-transform: uppercase;
+      }
+      h1, h2 { margin: 0; color: var(--ink); font-weight: 800; letter-spacing: -.05em; }
+      h1 { font-size: clamp(36px, 9vw, 52px); line-height: 1.03; }
+      h2 { font-size: clamp(30px, 7vw, 43px); line-height: 1.08; }
+      .accent { color: var(--pink-dark); }
+      .lead {
+        max-width: 360px;
+        margin: 18px auto 0;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.75;
+      }
+
+      .polaroid {
+        width: min(100%, 265px);
+        margin: 27px auto 25px;
+        padding: 10px 10px 16px;
+        background: white;
+        box-shadow: 0 15px 28px rgba(138, 82, 98, .13);
+        transform: rotate(-3deg);
+      }
+      .polaroid img { display: block; width: 100%; aspect-ratio: 1; object-fit: cover; }
+      .polaroid-caption { margin: 10px 0 -4px; color: #aa7f8e; font-size: 12px; font-weight: 700; }
+      .question { margin: 0 0 22px; font-size: 19px; font-weight: 800; text-align: center; }
+      .actions { display: flex; gap: 10px; justify-content: center; }
+      .button {
+        min-height: 47px;
+        padding: 12px 19px;
+        border: 0;
+        border-radius: 14px;
+        font-size: 13px;
+        font-weight: 800;
+        transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+      }
+      .button:hover { transform: translateY(-2px); }
+      .button--primary { color: white; background: var(--pink); box-shadow: 0 10px 22px rgba(238, 130, 153, .3); }
+      .button--primary:hover { background: var(--pink-dark); box-shadow: 0 14px 28px rgba(214, 93, 125, .3); }
+      .button--outline { color: var(--muted); border: 1px solid var(--line); background: white; }
+      .button--outline:hover { color: var(--pink-dark); border-color: var(--pink); }
+      .plea { min-height: 18px; margin: 14px 0 0; color: var(--pink-dark); font-size: 12px; font-weight: 700; text-align: center; }
+
+      .form-section { margin-top: 28px; }
+      .field-label { display: block; margin: 0 0 9px; font-size: 13px; font-weight: 800; }
+      .date-time { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+      input[type="date"], input[type="time"] {
+        width: 100%;
+        padding: 13px 12px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        outline: 0;
+        color: var(--ink);
+        background: white;
+        font-size: 13px;
+      }
+      input:focus { border-color: var(--pink); box-shadow: 0 0 0 3px rgba(238, 130, 153, .14); }
+      .food-title { margin: 28px 0 12px; }
+      .food-list { display: grid; gap: 9px; }
+      .food-option { position: relative; }
+      .food-option input { position: absolute; opacity: 0; pointer-events: none; }
+      .food-card {
+        display: block;
+        padding: 12px 14px;
+        border: 1px solid var(--line);
+        border-radius: 13px;
+        background: rgba(255,255,255,.74);
+        transition: .2s ease;
+      }
+      .food-card:hover { border-color: var(--pink); transform: translateX(2px); }
+      .food-option input:checked + .food-card { border-color: var(--pink); background: var(--pink-soft); box-shadow: 0 5px 15px rgba(238,130,153,.12); }
+      .food-name { display: block; font-size: 14px; font-weight: 800; }
+      .food-subtitle { display: block; margin-top: 2px; color: var(--muted); font-size: 11px; }
+      .confirm { width: 100%; margin-top: 25px; }
+      .error { min-height: 18px; margin: 9px 0 0; color: #c64d65; font-size: 12px; text-align: center; }
+
+      .receipt {
+        position: relative;
+        margin: 27px 0 22px;
+        padding: 23px 20px;
+        border: 1px dashed #e1aabb;
+        border-radius: 5px;
+        background: white;
+      }
+      .receipt::before, .receipt::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 8px;
+        background: linear-gradient(135deg, transparent 5px, white 0) 0 0 / 10px 10px repeat-x;
+      }
+      .receipt::before { top: -5px; }.receipt::after { bottom: -5px; transform: rotate(180deg); }
+      .receipt-heading { padding-bottom: 15px; border-bottom: 1px dashed var(--line); text-align: center; }
+      .receipt-heading strong { display: block; color: var(--pink-dark); font-size: 17px; }
+      .receipt-heading small { color: var(--muted); font-size: 10px; letter-spacing: .15em; text-transform: uppercase; }
+      .receipt-row { display: flex; justify-content: space-between; gap: 14px; padding: 11px 0; border-bottom: 1px solid #fcf0f3; font-size: 13px; }
+      .receipt-row:last-child { border: 0; padding-bottom: 0; }
+      .receipt-row span { color: var(--muted); }.receipt-row strong { text-align: right; }
+      .final-note { margin: 0 auto 23px; color: var(--muted); font-size: 13px; line-height: 1.65; text-align: center; }
+      .reset { display: block; margin: auto; }
+      .footer { margin-top: auto; padding-top: 17px; color: #ab97a0; font-size: 10px; text-align: center; }
+
+      @keyframes screen-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+      @media (max-width: 430px) {
+        .app { width: min(100% - 20px, 530px); padding: 17px 0; }
+        .screen { padding: 24px 18px; border-radius: 24px; }
+        .actions { flex-direction: column; }.actions .button { width: 100%; }
+        .polaroid { margin-top: 23px; }
+      }
+    </style>
   </head>
   <body>
-    <div class="page-glow page-glow--one" aria-hidden="true"></div>
-    <div class="page-glow page-glow--two" aria-hidden="true"></div>
-
-    <main class="invitation" id="invitation">
+    <main class="app">
       <header class="topbar">
-        <a class="brand" href="#" aria-label="Về đầu trang">
-          <span class="brand-mark">♡</span>
-          <span>một lời mời</span>
-        </a>
-        <span class="date-pill">28.10.2026</span>
+        <div class="brand"><span class="brand-heart">♡</span> Date invitation</div>
+        <div class="step" id="step-label">bước 1 / 3</div>
       </header>
 
-      <section class="hero" aria-labelledby="hero-title">
-        <div class="hero-copy">
-          <p class="eyebrow"><span></span> gửi người mình thương <span></span></p>
-          <h1 id="hero-title">Mình đi<br /><em>chơi nhé?</em></h1>
-          <p class="intro">
-            Có một buổi chiều thật xinh đang chờ chúng mình.<br />
-            Và mình muốn dành nó cho bạn.
-          </p>
-
-          <div class="choice-card" id="choice-card">
-            <p class="question">Bạn có muốn đi cùng mình không?</p>
-            <div class="choice-actions">
-              <button class="button button--primary" id="yes-button" type="button">
-                Đi chứ <span>♡</span>
-              </button>
-              <button class="button button--quiet" id="no-button" type="button">
-                Để mình nghĩ thêm
-              </button>
-            </div>
-            <p class="hint" id="hint" aria-live="polite"></p>
-          </div>
+      <section class="screen is-active" id="screen-invite" aria-labelledby="invite-title">
+        <div class="screen-header">
+          <p class="kicker">anh có điều muốn nói với emm...</p>
+          <h1 id="invite-title">Hôm tối mình<br /><span class="accent">đi ăn với nhau</span><br />được khum?</h1>
+          <p class="lead">Không phải cái gì quá to tát đâu, chỉ là anh muốn rủ em đi ăn theo cách hơi xu dề thương thôi nà ❤️</p>
         </div>
+        <figure class="polaroid">
+          <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=700&q=85" alt="Một khoảnh khắc ngọt ngào của hai người" />
+          <figcaption class="polaroid-caption">a little date for us ♡</figcaption>
+        </figure>
+        <p class="question">Em đi với anh nha? 🥺</p>
+        <div class="actions">
+          <button class="button button--primary" id="accept-button" type="button">Dạ được ❤️</button>
+          <button class="button button--outline" id="refuse-button" type="button">Để em nghĩ đã :&lt;</button>
+        </div>
+        <p class="plea" id="plea" aria-live="polite"></p>
+      </section>
 
-        <div class="hero-art" aria-label="Minh hoạ một buổi hẹn hò" role="img">
-          <div class="sun"></div>
-          <div class="spark spark--one">✦</div>
-          <div class="spark spark--two">✦</div>
-          <div class="spark spark--three">✦</div>
-          <div class="moon-note">a date<br />with you</div>
-          <div class="flower flower--left" aria-hidden="true">
-            <i></i><i></i><i></i><i></i><b></b>
+      <section class="screen" id="screen-plan" aria-labelledby="plan-title">
+        <div class="screen-header">
+          <p class="kicker">yay, em đồng ý rồi!</p>
+          <h2 id="plan-title">Mình <span class="accent">chốt kèo</span><br />thôi nào ❤️</h2>
+          <p class="lead">Em rảnh ngày, giờ nào thì chọn nhe, anh chiều hết lunnn</p>
+        </div>
+        <div class="form-section">
+          <label class="field-label" for="date-input">Mình gặp nhau ngày nào?</label>
+          <div class="date-time">
+            <input id="date-input" type="date" required />
+            <input id="time-input" type="time" required aria-label="Giờ hẹn" />
           </div>
-          <div class="flower flower--right" aria-hidden="true">
-            <i></i><i></i><i></i><i></i><b></b>
+          <h3 class="field-label food-title">Chọn món em muốn ăn</h3>
+          <div class="food-list">
+            <label class="food-option"><input type="radio" name="food" value="Mì cay" /><span class="food-card"><span class="food-name">🍜 Mì cay</span><span class="food-subtitle">Ăn cay chút cho cuộc đời thêm đậm vị</span></span></label>
+            <label class="food-option"><input type="radio" name="food" value="Xiên bẩn" /><span class="food-card"><span class="food-name">🍢 Xiên bẩn</span><span class="food-subtitle">Đơn giản mà vui</span></span></label>
+            <label class="food-option"><input type="radio" name="food" value="Đồ nướng" /><span class="food-card"><span class="food-name">🥩 Đồ nướng</span><span class="food-subtitle">Đỉnh của chóp</span></span></label>
+            <label class="food-option"><input type="radio" name="food" value="Lẩu" /><span class="food-card"><span class="food-name">🍲 Lẩu</span><span class="food-subtitle">Ngồi lai rai nói chuyện</span></span></label>
           </div>
-          <div class="hill hill--back"></div>
-          <div class="hill hill--front"></div>
-          <div class="blanket">
-            <span class="blanket-line"></span>
-            <span class="blanket-line"></span>
-            <span class="blanket-line"></span>
-          </div>
-          <div class="basket">
-            <span class="basket-handle"></span>
-            <span class="basket-body"></span>
-          </div>
-          <div class="little-heart">♥</div>
+          <p class="error" id="plan-error" aria-live="polite"></p>
+          <button class="button button--primary confirm" id="confirm-button" type="button">Xác nhận lựa chọn ❤️</button>
         </div>
       </section>
 
-      <footer class="footer">
-        <span>made with a little bit of courage</span>
-        <span class="footer-heart">♥</span>
-        <span>and a lot of love</span>
-      </footer>
+      <section class="screen" id="screen-receipt" aria-labelledby="receipt-title">
+        <div class="screen-header">
+          <p class="kicker">đã chốt đơn thành công</p>
+          <h2 id="receipt-title">Được <span class="accent">rùiiii</span> ❤️</h2>
+        </div>
+        <div class="receipt">
+          <div class="receipt-heading"><strong>HÓA ĐƠN HẸN HÒ</strong><small>date invitation no. 001</small></div>
+          <div class="receipt-row"><span>Người mời</span><strong>Anh</strong></div>
+          <div class="receipt-row"><span>Người được mời</span><strong>Em yêu</strong></div>
+          <div class="receipt-row"><span>Ngày</span><strong id="receipt-date">—</strong></div>
+          <div class="receipt-row"><span>Giờ</span><strong id="receipt-time">—</strong></div>
+          <div class="receipt-row"><span>Món ăn</span><strong id="receipt-food">—</strong></div>
+        </div>
+        <p class="final-note">Anh chốt lịch rồi đó, em chỉ cần chuẩn bị xinh xinh là được thôi nha 🥰</p>
+        <button class="button button--outline reset" id="reset-button" type="button">Chọn lại nè</button>
+      </section>
+
+      <footer class="footer">made with love, just for you ♡</footer>
     </main>
 
-    <section class="success-panel" id="success-panel" aria-live="polite" hidden>
-      <div class="confetti" aria-hidden="true"></div>
-      <button class="close-button" id="close-button" type="button" aria-label="Đóng">
-        ×
-      </button>
-      <p class="success-kicker">yay, mình có hẹn rồi!</p>
-      <div class="success-heart">♡</div>
-      <h2>Hẹn bạn một<br /><em>buổi thật vui nhé.</em></h2>
-      <p>
-        Mình sẽ chuẩn bị một chút bất ngờ.<br />
-        Còn bạn chỉ cần xuất hiện thật xinh thôi.
-      </p>
-      <div class="plan">
-        <div class="plan-item"><span>◷</span><strong>Chiều thứ bảy</strong><small>mình cùng đi dạo</small></div>
-        <div class="plan-item"><span>⌖</span><strong>Một nơi thật chill</strong><small>để kể nhau nghe mọi chuyện</small></div>
-      </div>
-      <button class="button button--primary button--again" id="again-button" type="button">
-        Đồng ý, đi thôi <span>→</span>
-      </button>
-    </section>
+    <script>
+      const screens = {
+        invite: document.querySelector("#screen-invite"),
+        plan: document.querySelector("#screen-plan"),
+        receipt: document.querySelector("#screen-receipt"),
+      };
+      const stepLabel = document.querySelector("#step-label");
+      const pleas = ["Đi nhaa :(( ", "Năn nỉ ó", "Bấm có đi mà", "Hong cho từ chối đâu"];
+      let pleaIndex = 0;
 
-    <script src="script.js"></script>
+      function showScreen(name, step) {
+        Object.values(screens).forEach((screen) => screen.classList.remove("is-active"));
+        screens[name].classList.add("is-active");
+        stepLabel.textContent = `bước ${step} / 3`;
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      document.querySelector("#accept-button").addEventListener("click", () => showScreen("plan", 2));
+      document.querySelector("#refuse-button").addEventListener("click", (event) => {
+        const button = event.currentTarget;
+        button.textContent = pleas[pleaIndex % pleas.length];
+        pleaIndex += 1;
+        document.querySelector("#plea").textContent = "Đi một bữa thôi mà, anh hứa sẽ làm em vui ♡";
+        button.animate(
+          [{ transform: "translateX(0)" }, { transform: "translateX(-5px)" }, { transform: "translateX(5px)" }, { transform: "translateX(0)" }],
+          { duration: 300, easing: "ease-out" },
+        );
+      });
+
+      document.querySelector("#confirm-button").addEventListener("click", () => {
+        const date = document.querySelector("#date-input").value;
+        const time = document.querySelector("#time-input").value;
+        const food = document.querySelector('input[name="food"]:checked');
+        const error = document.querySelector("#plan-error");
+        if (!date || !time || !food) {
+          error.textContent = "Chọn đủ ngày, giờ và món ăn giúp anh nha ♡";
+          return;
+        }
+        error.textContent = "";
+        const dateObject = new Date(`${date}T00:00:00`);
+        document.querySelector("#receipt-date").textContent = dateObject.toLocaleDateString("vi-VN", {
+          day: "2-digit", month: "2-digit", year: "numeric",
+        });
+        document.querySelector("#receipt-time").textContent = time;
+        document.querySelector("#receipt-food").textContent = food.value;
+        showScreen("receipt", 3);
+      });
+
+      document.querySelector("#reset-button").addEventListener("click", () => showScreen("plan", 2));
+    </script>
   </body>
 </html>
